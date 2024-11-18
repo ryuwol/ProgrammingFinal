@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector2 PlayerMove = new Vector2(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"));
+        Vector2 PlayerMove = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         transform.position = PlayerMove.normalized * PlayerSpeed;
     }
 }
