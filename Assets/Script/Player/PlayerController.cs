@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float PlayerSpeed = 1.0f;
-    void Start()
-    {
-        
-    }
-
+    public PlayerData data;
     void Update()
     {
         Vector2 PlayerMove = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        transform.position = PlayerMove.normalized * PlayerSpeed;
+        transform.Translate(PlayerMove.normalized * data.SpeedValue * Time.deltaTime);
     }
 }
