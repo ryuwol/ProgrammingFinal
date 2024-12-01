@@ -167,5 +167,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletType: 0
-  BulletSpeed: 10
-  PublicDamage: 0
+  BulletSpeed: 5
+  PublicDamage: 1.5

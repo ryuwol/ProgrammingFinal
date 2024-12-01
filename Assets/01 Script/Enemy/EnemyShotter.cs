@@ -34,10 +34,6 @@ public class EnemyShotter : MonoBehaviour
             {
                 direction = (Playertransform.position.normalized);
             }
-            else if(bulletType == BulletType.Circle)
-            {
-
-            }
             bullet.transform.position = this.transform.position;
             bullet.Shoot(direction.normalized, E_data.DamageValue);
         }

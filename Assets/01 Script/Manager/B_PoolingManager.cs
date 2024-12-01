@@ -7,7 +7,6 @@ public enum BulletType
     Enemy,
     Follow,
     Wave,
-    Circle
 }
 
 public class B_PoolingManager : MonoBehaviour
@@ -18,7 +17,6 @@ public class B_PoolingManager : MonoBehaviour
     [SerializeField] private GameObject enemyBulletPrefab;
     [SerializeField] private GameObject FollowBulletPrefab;
     [SerializeField] private GameObject WaveBulletPrefab;
-    [SerializeField] private GameObject CircleBulletPrefab;
 
     private Dictionary<BulletType, Queue<Bullet>> bulletPoolQueues = new Dictionary<BulletType, Queue<Bullet>>();
 
