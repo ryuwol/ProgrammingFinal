@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f686a31f0622114aae36e8fab7748b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletType: 1
   shootInterval: 2
   E_data: {fileID: 18682139375241079}
 --- !u!114 &18682139375241079
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28bce01195dab2b4b8d03cf556e2ce7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  Speed: 1
   Hp: 5
   Damage: 1
 --- !u!60 &6447041745187947790

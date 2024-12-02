@@ -4,7 +4,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemyShotter : MonoBehaviour
 {
-    BulletType bulletType;
+    public BulletType bulletType;
     [SerializeField] private float shootInterval = 1.0f;
     public EnemyData E_data;
     private void OnEnable()

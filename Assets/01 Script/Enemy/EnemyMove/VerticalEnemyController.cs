@@ -16,21 +16,20 @@ public class VerticalEnemyController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Boreder")
+        if (collision.gameObject.tag == "UpDownBorder")
             Turn();
     }
     void Turn()
     {
         if (MoveState == true)
         {
-            direction = Vector3.up;
+            direction = Vector3.right;
             MoveState = false;
         }
-        else
+        else if (MoveState == false)
         {
-            direction = Vector3.down;
+            direction = Vector3.left;
             MoveState = true;
         }
-        
     }
 }

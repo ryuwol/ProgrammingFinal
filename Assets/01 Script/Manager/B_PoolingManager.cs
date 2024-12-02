@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BulletType
+public class B_PoolInfo
 {
-    Player,
-    Enemy,
-    Follow,
-    Wave,
+    public string Name;
+    public GameObject prefab;
+    public Queue<GameObject> pool;
+    public int poolSize;
 }
 
 public class B_PoolingManager : MonoBehaviour
@@ -69,6 +69,6 @@ public class B_PoolingManager : MonoBehaviour
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
-        Instance.bulletPoolQueues[obj.BulletType].Enqueue(obj);
+        Instance.bulletPoolQueues[obj.PoolInfo.Name].Enqueue(obj);
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - E_Bullet
   - P_Bullet
   - Undefined
+  - UpDownBorder
   layers:
   - Default
   - TransparentFX

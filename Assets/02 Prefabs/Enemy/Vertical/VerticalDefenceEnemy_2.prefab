@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3253412787516846639}
   - component: {fileID: -5645724738824643003}
   m_Layer: 0
-  m_Name: DefenceEnemy_2
+  m_Name: VerticalDefenceEnemy_2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

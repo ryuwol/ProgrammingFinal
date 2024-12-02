@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public BulletType BulletType;
+    public enum BulletType
+    {
+        Player,
+        Enemy,
+        Follow,
+        Wave,
+    }
     public float BulletSpeed = 10f;
     public float PublicDamage;
     private Vector3 direction;
@@ -34,7 +40,7 @@ public class Bullet : MonoBehaviour
         {
             B_PoolingManager.ReturnObject(this);
         }
-        else if(collision.gameObject.tag=="Border")
+        else if(collision.gameObject.tag=="Border" || collision.gameObject.tag == "UpDownBorder")
         {
             B_PoolingManager.ReturnObject(this);
         }

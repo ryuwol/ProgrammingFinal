@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f686a31f0622114aae36e8fab7748b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletType: 1
   shootInterval: 3
   E_data: {fileID: 8129470280144779532}
 --- !u!60 &3675481400255817257
