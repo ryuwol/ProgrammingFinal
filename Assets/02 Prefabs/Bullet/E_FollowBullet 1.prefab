@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 391221595644108170}
   - component: {fileID: 173310465375710332}
   m_Layer: 0
-  m_Name: E_WaveBullet
+  m_Name: E_FollowBullet 1
   m_TagString: Undefined
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,7 +14,7 @@ public class StageData
 [Serializable]
 public class EnemySpawnInfo
 {
-    public E_PoolInfo PoolInfo;  // 적 타입 (enum으로 정의 필요)
+    public EnemyType enemyType;  // 적 타입 (enum으로 정의 필요)
     public int count;  // 해당 타입 적의 수
     public float spawnDelay;  // 각 적 타입별 고유 소환 딜레이
     public float spawnInterval;  // 같은 타입 적 사이의 간격
@@ -23,7 +23,7 @@ public class EnemySpawnInfo
 
 public class StageManager : MonoBehaviour
 {
-     public E_PoolInfo PoolInfo;
+    public EnemyType EnemyType { get; set; }
     public List<StageData> stages = new List<StageData>();
 
     private void Awake()
@@ -47,38 +47,37 @@ public class StageManager : MonoBehaviour
 
     private List<EnemySpawnInfo> GenerateEnemySpawns(int stageNumber)
     {
-        /*List<EnemySpawnInfo> spawns = new List<EnemySpawnInfo>
+        List<EnemySpawnInfo> spawns = new List<EnemySpawnInfo>
         {
             new EnemySpawnInfo
             {
-                PoolInfo = PoolInfo.DPS,
+                enemyType = EnemyType.DPS,
                 count = Mathf.Clamp(stageNumber/2, 1, 3),
                 spawnDelay = 1f,  // 딜러 적 소환 시작 시간
                 spawnInterval = 0.7f  // 딜러 적 사이 간격
             },
             new EnemySpawnInfo
             {
-                PoolInfo = PoolInfo.Epic,
+                enemyType = EnemyType.Epic,
                 count = Mathf.Clamp(stageNumber / 10, 0, 2),
                 spawnDelay = 2f,  // 에픽 적 소환 시작 시간
                 spawnInterval = 5f  // 에픽 적 사이 간격
             },
             new EnemySpawnInfo
             {
-                PoolInfo = PoolInfo.Normal,
+                enemyType = EnemyType.Normal,
                 count = Mathf.Clamp(stageNumber/2 , 1, 5),
                 spawnDelay = 0.5f,  // 기본 적 소환 시작 시간
                 spawnInterval = 0.5f  // 기본 적 사이 간격
             },
             new EnemySpawnInfo
             {
-                PoolInfo = PoolInfo.Name,
+                enemyType = EnemyType.Defence,
                 count = Mathf.Clamp(stageNumber / 5, 0, 5),
                 spawnDelay = 0.7f,  // 방어 적 소환 시작 시간
                 spawnInterval = 1.0f  // 방어 적 사이 간격
             }
         };
-        return spawns;*/
-        return null;
+        return spawns;
     }
 }

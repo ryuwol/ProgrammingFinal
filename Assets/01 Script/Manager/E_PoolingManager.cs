@@ -1,80 +1,80 @@
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
-
-[System.Serializable]
-public class E_PoolInfo
-{
-    public string Name;
-    public GameObject prefab;
-    public Queue<GameObject> pool;
-    public int poolSize;
-}
 
 public class E_PoolingManager : MonoBehaviour
 {
-    [SerializeField] private List<E_PoolInfo> pools;
+    public enum EnemyType
+    {
+        DPS,
+        Epic,
+        Normal,
+        Defence
+    }
     public static E_PoolingManager Instance { get; private set; }
+
+    [SerializeField] private GameObject dpsEnemyPrefab;
+    [SerializeField] private GameObject epicEnemyPrefab;
+    [SerializeField] private GameObject normalEnemyPrefab;
+    [SerializeField] private GameObject defenceEnemyPrefab;
+    private Dictionary<EnemyType, Queue<Enemy>> enemyPoolQueues = new Dictionary<EnemyType, Queue<Enemy>>();
+
     private void Awake()
     {
         Instance = this;
-        Initialize();
+        Initialize(EnemyType.DPS, 5);
+        Initialize(EnemyType.Epic, 2);
+        Initialize(EnemyType.Normal, 7);
+        Initialize(EnemyType.Defence, 5);
     }
 
-    private void Initialize()
+    private void Initialize(EnemyType type, int initCount)
     {
-        for (int i = 0; i < pools.Count; i++)
-        { 
-            var pool = pools[i];
-            pool.pool = new Queue<GameObject>();
+        enemyPoolQueues[type] = new Queue<Enemy>();
 
-            for (int j = 0; j < pool.poolSize; j++)
-            {
-                GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(false);
-
-                pool.pool.Enqueue(obj);
-            }
-        }
-    }
-
-    private Enemy CreateNewObject(int order, string name)
-    {
-            if(name == pools[order].Name)
-            {
-                var newObj = Instantiate(pools[order].prefab).GetComponent<Enemy>();
-                newObj.gameObject.SetActive(false);
-                newObj.transform.SetParent(transform);
-                return newObj;
-            }
-        return null;
-    }
-    public Enemy GetObject(string name)
-    {
-        for (int i = 0; i < pools.Count; i++)
+        for (int i = 0; i < initCount; i++)
         {
-            if (pools[i].Name != name) continue;
-
-            if (pools[i].pool.Count > 0)
-            {
-                var obj = pools[i].pool.Dequeue();
-                obj.transform.SetParent(null);
-                obj.gameObject.SetActive(true);
-                return obj.GetComponent<Enemy>();
-            }
-            else
-            {
-                var newObj = CreateNewObject(i,name);
-                newObj.gameObject.SetActive(true);
-                newObj.transform.SetParent(null);
-                return newObj;
-            }
+            enemyPoolQueues[type].Enqueue(CreateNewObject(type));
         }
-        return null;
+    }
+
+    private Enemy CreateNewObject(EnemyType type)
+    {
+        GameObject prefab = type switch
+        {
+            EnemyType.DPS => dpsEnemyPrefab,
+            EnemyType.Epic => epicEnemyPrefab,
+            EnemyType.Normal => normalEnemyPrefab,
+            EnemyType.Defence => defenceEnemyPrefab,
+            _ => null
+        };
+        var newObj = Instantiate(prefab).GetComponent<Enemy>();
+        newObj.gameObject.SetActive(false);
+        newObj.EnemyType = type;
+        newObj.transform.SetParent(transform);
+        return newObj;
+    }
+    public static Enemy GetObject(EnemyType type)
+    {
+        if (Instance.enemyPoolQueues[type].Count > 0)
+        {
+            var obj = Instance.enemyPoolQueues[type].Dequeue();
+            obj.transform.SetParent(null);
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+        else
+        {
+            var newObj = Instance.CreateNewObject(type);
+            newObj.gameObject.SetActive(true);
+            newObj.transform.SetParent(null);
+            return newObj;
+        }
     }
     public static void ReturnObject(Enemy obj)
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
-        pools[obj.name].pool.Enqueue(obj);
+        Instance.enemyPoolQueues[obj.EnemyType].Enqueue(obj);
     }
 }

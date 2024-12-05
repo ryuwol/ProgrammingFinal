@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
             // 해당 적 스폰
             for (int i = 0; i < enemySpawn.count; i++)
             {
-                SpawnEnemy(enemySpawn.PoolInfo.Name);
+                SpawnEnemy(enemySpawn.enemyType);
                 totalEnemiesSpawned++;
                 // 다음 적 스폰 사이 간격
                 yield return new WaitForSeconds(enemySpawn.spawnInterval);
@@ -69,9 +69,9 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnStageEnemies(currentStage));
     }
 
-    void SpawnEnemy(string name)
+    void SpawnEnemy(EnemyType type)
     {
-        var Enemy = E_PoolingManager.Instance.GetObject(name);
+        var Enemy = E_PoolingManager.GetObject(type);
         Vector3 EnemyPosition = new Vector3(8.5f, Random.Range(-4.3f, 4.3f));
 
         // 적 생성 (실제 위치는 원하는 대로 조정)
