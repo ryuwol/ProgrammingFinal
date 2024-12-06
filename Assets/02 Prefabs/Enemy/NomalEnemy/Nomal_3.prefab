@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4961991274477063664}
   - component: {fileID: 1891395983059009721}
   - component: {fileID: 247529468186218413}
-  - component: {fileID: 18682139375241079}
-  - component: {fileID: 6447041745187947790}
-  - component: {fileID: 3463771611911337939}
   - component: {fileID: -1415258494262233736}
+  - component: {fileID: 18682139375241079}
+  - component: {fileID: 3463771611911337939}
+  - component: {fileID: 6447041745187947790}
   m_Layer: 0
-  m_Name: NomalEnemy
+  m_Name: Nomal_3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,8 +104,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f686a31f0622114aae36e8fab7748b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootInterval: 2
+  ShootType: 2
+  shootInterval: 1.5
   E_data: {fileID: 18682139375241079}
+--- !u!114 &-1415258494262233736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118581819511002824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123ac9b8e9595114baae804ae035d1c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 18682139375241079}
+  movementPattern: 2
 --- !u!114 &18682139375241079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,9 +133,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28bce01195dab2b4b8d03cf556e2ce7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
-  Hp: 5
+  Speed: 1.5
+  Hp: 9
   Damage: 1
+--- !u!114 &3463771611911337939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118581819511002824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af1e1c128c574245b2b7d65ef8c67ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &6447041745187947790
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -171,28 +198,3 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!114 &3463771611911337939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118581819511002824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af1e1c128c574245b2b7d65ef8c67ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-1415258494262233736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118581819511002824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 123ac9b8e9595114baae804ae035d1c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 18682139375241079}

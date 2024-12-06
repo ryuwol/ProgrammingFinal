@@ -1,83 +1,65 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using static E_PoolingManager;
-
-[Serializable]
-public class StageData
-{
-    public int stageNumber;
-    public List<EnemySpawnInfo> enemySpawns;
-    public float stageSpawnDelay;
-}
-
-[Serializable]
-public class EnemySpawnInfo
-{
-    public EnemyType enemyType;  // 적 타입 (enum으로 정의 필요)
-    public int count;  // 해당 타입 적의 수
-    public float spawnDelay;  // 각 적 타입별 고유 소환 딜레이
-    public float spawnInterval;  // 같은 타입 적 사이의 간격
-}
-
 
 public class StageManager : MonoBehaviour
 {
-    public EnemyType EnemyType { get; set; }
-    public List<StageData> stages = new List<StageData>();
-
-    private void Awake()
+    [System.Serializable]
+    public class EnemyInfo
     {
-        CreateStages();
+        public string name; // 소환할 적의 이름
+        public int count;              // 소환할 적의 수
+        public float spawnDelay;       // 소환 간 딜레이
     }
 
-    private void CreateStages()
+    [System.Serializable]
+    public class StageInfo
     {
-        for (int i = 1; i <= 40; i++)
+        public List<EnemyInfo> enemies;  // 스테이지에서 소환할 적들의 정보
+    }
+    [SerializeField] private List<StageInfo> stages; // 여러 스테이지 정보들
+    public int currentStageIndex = 0; // 현재 진행중인 스테이지 인덱스
+    public E_PoolingManager enemyPoolingManager; // 적 풀링 매니저
+    public SpawnManager enemySpawner; // EnemySpawner를 참조하여 적 소환
+    public int CurrentStageIndex => currentStageIndex; // 외부에서 현재 스테이지 인덱스를 조회할 수 있도록
+    public TextMeshProUGUI StageUi;
+    private void Start()
+    {
+        // 첫 번째 스테이지를 시작
+        StartStage(currentStageIndex);
+    }
+
+    // 스테이지 시작 메서드
+    public void StartStage(int stageIndex)
+    {
+        if (stageIndex < 0 || stageIndex >= stages.Count) return;
+        int StageNumber = stageIndex+1;
+        var stage = stages[stageIndex];
+        // 스테이지의 적들을 소환하도록 EnemySpawner에 전달
+        enemySpawner.StartStage(stageIndex, stage.enemies);
+        StageUi.text = "Stage : " + (StageNumber).ToString();
+    }
+
+    public StageInfo GetStageInfo(int stageIndex)
+    {
+        if (stageIndex < 0 || stageIndex >= stages.Count)
+            return null;
+
+        return stages[stageIndex];
+    }
+
+    // 스테이지를 넘기는 메서드
+    public void MoveToNextStage()
+    {
+        if (currentStageIndex + 1 < stages.Count)
         {
-            StageData stage = new StageData
-            {
-                stageNumber = i,
-                stageSpawnDelay = 1f + (i * 0.05f),  // 스테이지마다 약간씩 증가하는 딜레이
-                enemySpawns = GenerateEnemySpawns(i)
-            };
-            stages.Add(stage);
+            currentStageIndex++;
+            StartStage(currentStageIndex); // 다음 스테이지 시작
         }
-    }
-
-    private List<EnemySpawnInfo> GenerateEnemySpawns(int stageNumber)
-    {
-        List<EnemySpawnInfo> spawns = new List<EnemySpawnInfo>
+        else
         {
-            new EnemySpawnInfo
-            {
-                enemyType = EnemyType.DPS,
-                count = Mathf.Clamp(stageNumber/2, 1, 3),
-                spawnDelay = 1f,  // 딜러 적 소환 시작 시간
-                spawnInterval = 0.7f  // 딜러 적 사이 간격
-            },
-            new EnemySpawnInfo
-            {
-                enemyType = EnemyType.Epic,
-                count = Mathf.Clamp(stageNumber / 10, 0, 2),
-                spawnDelay = 2f,  // 에픽 적 소환 시작 시간
-                spawnInterval = 5f  // 에픽 적 사이 간격
-            },
-            new EnemySpawnInfo
-            {
-                enemyType = EnemyType.Normal,
-                count = Mathf.Clamp(stageNumber/2 , 1, 5),
-                spawnDelay = 0.5f,  // 기본 적 소환 시작 시간
-                spawnInterval = 0.5f  // 기본 적 사이 간격
-            },
-            new EnemySpawnInfo
-            {
-                enemyType = EnemyType.Defence,
-                count = Mathf.Clamp(stageNumber / 5, 0, 5),
-                spawnDelay = 0.7f,  // 방어 적 소환 시작 시간
-                spawnInterval = 1.0f  // 방어 적 사이 간격
-            }
-        };
-        return spawns;
+            Debug.Log("끝");
+        }
     }
 }

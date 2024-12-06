@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150959e72db21b54b9c1e46c24be8a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShootType: 0
   bullet_delay: 0.25
   time_set: 0
   data: {fileID: 2359763223117299631}
@@ -154,9 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78bad36d662501646962853643f11ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HpUi: {fileID: 0}
   Speed: 4
-  Hp: 10
-  Damage: 1
+  Hp: 100
+  Damage: 5
 --- !u!50 &372089304135350271
 Rigidbody2D:
   serializedVersion: 5

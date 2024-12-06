@@ -5,6 +5,7 @@ using UnityEngine.Pool;
 
 public class PlayerController : MonoBehaviour
 {
+    public ShootType ShootType;
     public float bullet_delay = 0.25f;
     public float time_set = 0f;
     public PlayerData data;
@@ -19,10 +20,10 @@ public class PlayerController : MonoBehaviour
         transform.Translate(PlayerMove.normalized * data.SpeedValue * Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.Space) && bullet_delay <= time_set)
         {
-            var bullet = B_PoolingManager.GetObject(BulletType.Player);
+            Bullet bullet = B_PoolingManager.B_Pooling.GetObject("P_Bullet");
             var direction = Vector3.up;
             bullet.transform.position = this.transform.position;
-            bullet.Shoot(direction.normalized, data.DamageValue);
+            bullet.Shoot(data.DamageValue, this.ShootType);
             time_set = 0;
         }
     }

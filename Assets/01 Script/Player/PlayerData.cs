@@ -1,19 +1,26 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using TMPro;
 public class PlayerData : MonoBehaviour
 {
-    private StatisticsManager StatisticsManager;
+    GameObject TextObject;
+    public TextMeshProUGUI HpUi;
+    private StatsManager StatisticsManager;
     [SerializeField] private float Speed;
     [SerializeField] private float Hp;
     [SerializeField] private float Damage;
     Bullet Bullet;
     EnemyData enemyData;
+    
     public float SpeedValue => Speed;
     public float DamageValue => Damage;
     public float HpValue => Hp;
     void Start()
     {
-        StatisticsManager = new StatisticsManager(Speed, Hp, Damage);
+        TextObject = GameObject.Find("HP");
+        HpUi =TextObject.GetComponent<TextMeshProUGUI>();
+        HpUi.text = "HP : " + Hp.ToString();
+        StatisticsManager = new StatsManager(Speed, Hp, Damage);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -26,6 +33,11 @@ public class PlayerData : MonoBehaviour
         {
             enemyData = collision.gameObject.GetComponent<EnemyData>();
             Hp -= enemyData.DamageValue;
+            if (Hp<=0)
+            {
+                SceneManager.LoadScene("MainScene");
+            }
         }
+        HpUi.text = "HP : " + Hp.ToString();
     }
 }

@@ -1,74 +1,86 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BulletType
+[System.Serializable]
+public class B_PoolInfo
 {
-    Player,
-    Enemy,
-    Follow,
-    Wave,
+    public string Name;
+    public GameObject prefab;
+    public Queue<GameObject> pool;
+    public int poolSize;
 }
 
 public class B_PoolingManager : MonoBehaviour
 {
-    public static B_PoolingManager Instance { get; private set; }
-
-    [SerializeField] private GameObject playerBulletPrefab;
-    [SerializeField] private GameObject enemyBulletPrefab;
-    [SerializeField] private GameObject FollowBulletPrefab;
-    [SerializeField] private GameObject WaveBulletPrefab;
-
-    private Dictionary<BulletType, Queue<Bullet>> bulletPoolQueues = new Dictionary<BulletType, Queue<Bullet>>();
-
+    [SerializeField] private List<B_PoolInfo> B_pools;
+    public static B_PoolingManager B_Pooling { get; private set; }
     private void Awake()
     {
-        Instance = this;
-        Initialize(BulletType.Player, 10);
-        Initialize(BulletType.Enemy, 10);
+        B_Pooling = this;
+        Initialize();
     }
 
-    private void Initialize(BulletType type, int initCount)
+    private void Initialize()
     {
-        bulletPoolQueues[type] = new Queue<Bullet>();
-
-        for (int i = 0; i < initCount; i++)
+        for (int i = 0; i < B_pools.Count; i++)
         {
-            bulletPoolQueues[type].Enqueue(CreateNewObject(type));
+            var pool = B_pools[i];
+            pool.pool = new Queue<GameObject>();
+
+            for (int j = 0; j < pool.poolSize; j++)
+            {
+                GameObject obj = Instantiate(pool.prefab);
+                obj.name=pool.Name;
+                obj.SetActive(false);
+                obj.transform.SetParent(transform);
+                pool.pool.Enqueue(obj);
+            }
         }
     }
-
-    private Bullet CreateNewObject(BulletType type)
+    private Bullet CreateNewObject(int order, string name)
     {
-        GameObject prefab = type == BulletType.Player ? playerBulletPrefab : enemyBulletPrefab;
-        var newObj = Instantiate(prefab).GetComponent<Bullet>();
-        newObj.gameObject.SetActive(false);
-        newObj.BulletType = type;
-        newObj.transform.SetParent(transform);
-        return newObj;
-    }
-
-    public static Bullet GetObject(BulletType type)
-    {
-        if (Instance.bulletPoolQueues[type].Count > 0)
+        if (name == B_pools[order].Name)
         {
-            var obj = Instance.bulletPoolQueues[type].Dequeue();
-            obj.gameObject.SetActive(true);
-            obj.transform.SetParent(null);
-            return obj;
-        }
-        else
-        {
-            var newObj = Instance.CreateNewObject(type);
-            newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
+            var newObj = Instantiate(B_pools[order].prefab).GetComponent<Bullet>();
+            newObj.gameObject.name = name;
+            newObj.gameObject.SetActive(false);
+            newObj.transform.SetParent(transform);
             return newObj;
         }
+        return null;
     }
 
-    public static void ReturnObject(Bullet obj)
+    public Bullet GetObject(string name)
+    {
+        for (int i = 0; i < B_pools.Count; i++)
+        {
+            if (B_pools[i].Name != name) continue;
+
+            if (B_pools[i].pool.Count > 0)
+            {
+                var obj = B_pools[i].pool.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj.GetComponent<Bullet>();
+            }
+            else
+            {
+                var newObj = CreateNewObject(i, name);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+        return null;
+    }
+    public void ReturnObject(GameObject obj)
     {
         obj.gameObject.SetActive(false);
-        obj.transform.SetParent(Instance.transform);
-        Instance.bulletPoolQueues[obj.BulletType].Enqueue(obj);
+        obj.transform.SetParent(B_Pooling.transform);
+        for (int i = 0; i < B_pools.Count; i++)
+        {
+            if (B_pools[i].Name == obj.gameObject.name)
+                B_pools[i].pool.Enqueue(obj);
+        }
     }
 }

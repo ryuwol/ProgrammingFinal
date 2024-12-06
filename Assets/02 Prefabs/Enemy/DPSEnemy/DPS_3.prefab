@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6882181237687571979}
-  - component: {fileID: 2035433242144499961}
   - component: {fileID: 5630697989581018671}
+  - component: {fileID: -1084141762957985598}
   - component: {fileID: 7957818401231520740}
   - component: {fileID: -1219990963478826446}
-  - component: {fileID: -1084141762957985598}
+  - component: {fileID: 2035433242144499961}
   m_Layer: 0
-  m_Name: DPSEnemy
+  m_Name: DPS_3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,6 +38,62 @@ Transform:
   - {fileID: 3487445227759145074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &5630697989581018671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815204016621893115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f686a31f0622114aae36e8fab7748b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShootType: 3
+  shootInterval: 1
+  E_data: {fileID: 7957818401231520740}
+--- !u!114 &-1084141762957985598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815204016621893115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123ac9b8e9595114baae804ae035d1c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 7957818401231520740}
+  movementPattern: 2
+--- !u!114 &7957818401231520740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815204016621893115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28bce01195dab2b4b8d03cf556e2ce7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 2
+  Hp: 6
+  Damage: 5
+--- !u!114 &-1219990963478826446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815204016621893115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af1e1c128c574245b2b7d65ef8c67ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &2035433242144499961
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -91,60 +147,6 @@ PolygonCollider2D:
       - {x: -0.5158584, y: -1.273072}
       - {x: 0.5007278, y: -1.2805874}
   m_UseDelaunayMesh: 0
---- !u!114 &5630697989581018671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815204016621893115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f686a31f0622114aae36e8fab7748b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootInterval: 1
-  E_data: {fileID: 7957818401231520740}
---- !u!114 &7957818401231520740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815204016621893115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28bce01195dab2b4b8d03cf556e2ce7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 2
-  Hp: 4
-  Damage: 5
---- !u!114 &-1219990963478826446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815204016621893115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af1e1c128c574245b2b7d65ef8c67ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-1084141762957985598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815204016621893115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 123ac9b8e9595114baae804ae035d1c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 7957818401231520740}
 --- !u!1 &7155424919900335020
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +158,7 @@ GameObject:
   - component: {fileID: 3487445227759145074}
   - component: {fileID: 2060523257031349384}
   m_Layer: 0
-  m_Name: DPSEnemey
+  m_Name: Square
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +224,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.33333334, g: 0.23137255, b: 0.23137255, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -309,7 +311,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.33333334, g: 0.23137255, b: 0.23137255, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

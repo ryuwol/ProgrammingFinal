@@ -9,6 +9,8 @@ TagManager:
   - E_Bullet
   - P_Bullet
   - Undefined
+  - UpDownBorder
+  - HpUi
   layers:
   - Default
   - TransparentFX

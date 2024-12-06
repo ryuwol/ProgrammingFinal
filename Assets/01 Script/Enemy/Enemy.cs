@@ -4,13 +4,19 @@ using static E_PoolingManager;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private StatisticsManager statisticsManager;
+    [SerializeField] private StatsManager statisticsManager;
     private Bullet Bullet;
     EnemyData enemyData;
-    public EnemyType EnemyType { get; set; }
+    EnemyController EnemyController;
+    public delegate void EnemyDefeatedHandler();
+    public event EnemyDefeatedHandler OnEnemyDefeated;
+    private void OnEnable()
+    {
+        EnemyController = gameObject.GetComponent<EnemyController>();
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("P_Bullet"))
+        if (collision.gameObject.tag == "P_Bullet")
         {
             Bullet = collision.gameObject.GetComponent<Bullet>();
             enemyData = this.gameObject.GetComponent<EnemyData>();
@@ -19,14 +25,15 @@ public class Enemy : MonoBehaviour
                 enemyData.DecreaseHp(Bullet.PublicDamage);
             }
         }
-        else if (collision.gameObject.CompareTag("Player"))
+        else if (collision.gameObject.tag == "Player")
         {
-            E_PoolingManager.ReturnObject(this);
+            E_PoolingManager.E_Pooling.ReturnObject(this.gameObject);
+            OnEnemyDefeated?.Invoke();            // 적이 처치되었을 때 OnEnemyDefeated 이벤트 호출
+            OnEnemyDefeated = null;               // 이벤트 초기화
         }
-        else if (collision.gameObject.CompareTag("Border"))
+        else if (collision.gameObject.tag == "Border")
         {
-            this.gameObject.transform.position = new Vector3(9.5f, UnityEngine.Random.Range(-4.3f, 4.3f));
-            Debug.Log("Go back");
+            EnemyController.SetTransform();
         }
     }
 }

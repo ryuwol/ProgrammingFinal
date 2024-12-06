@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class StatisticsManager
+public class StatsManager
 {
     public float Speed;
     public float Hp;
     public float Damage;
-    public StatisticsManager(float _Speed, float _Hp, float _Damage)
+    public StatsManager(float _Speed, float _Hp, float _Damage)
     {
         this.Speed = _Speed;
         this.Hp = _Hp;
