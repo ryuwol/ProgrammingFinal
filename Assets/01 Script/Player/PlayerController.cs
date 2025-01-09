@@ -11,13 +11,14 @@ public class PlayerController : MonoBehaviour
     public PlayerData data;
     void Update()
     {
-     Shot();
+        Shot();
+        Vector2 PlayerMove = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        transform.Translate(PlayerMove.normalized * data.SpeedValue * Time.deltaTime);
+
     }
     void Shot()
     {
         time_set += Time.deltaTime;
-        Vector2 PlayerMove = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        transform.Translate(PlayerMove.normalized * data.SpeedValue * Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.Space) && bullet_delay <= time_set)
         {
             Bullet bullet = B_PoolingManager.B_Pooling.GetObject("P_Bullet");
